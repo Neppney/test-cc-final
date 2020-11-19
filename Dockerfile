@@ -1,7 +1,7 @@
 ### Mostly Finished Dockerfile ###
 
 # set base image (host os)
-FROM python:3.8
+FROM python:3.9
 
 # Not needed
 # set the environment variable to the private key user json file
@@ -20,5 +20,6 @@ RUN pip install -r requirements.txt
 # copy the content of the local directoy to the working directory
 COPY / .
 
+EXPOSE 8080
 # command to run on container start
 CMD [ "python", "./app.py" ]

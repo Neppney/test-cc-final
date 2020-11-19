@@ -13,7 +13,7 @@
                     ENTER DATE FROM 40000+
                 </label>
                <P><input type= "text" name="date"></P> 
-               <p><input type="submit" value="SUBMIT DATE"></p>
+               <p><input type="submit" value="Predict & Submit to Database"></p>
             </div>
             <div>
                 <label for="input"> 
@@ -24,7 +24,8 @@
                     THE ACCURACY OF THE DATA IS: 
                 </label>
                <p>{{ accuracy }}</p>
-                </div>
+                <p>{{ status }}</p>
+            </div>
         </form>
     </section>
 {% endblock %}
