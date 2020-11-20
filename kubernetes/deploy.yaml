@@ -21,9 +21,10 @@ spec:
         app: randomizer
     spec:
       containers:
-        - image: gcr.io/cc-final-296102/github.com/neppney/test-cc-final
+        - name: randomizer
+          image: gcr.io/cc-final-296102/github.com/neppney/test-cc-final
           imagePullPolicy: Always
-          name: randomizer
+
         env:
           - name: DB_USER
             valueFrom:
