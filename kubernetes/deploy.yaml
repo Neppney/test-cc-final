@@ -43,15 +43,17 @@ spec:
         - name: cloud-sql-proxy
             image: gcr.io/cloudsql-docker/gce-proxy:1.17
             command:
-              - "/cloud_sql_proxy -instances=cc-final-296102:us-east4:cc-final-database=tcp:3306 -credential_file=/secrets/sql_credentials.json"
+              - "/cloud_sql_proxy"
+              - "-instances=cc-final-296102:us-east4:cc-final-database=tcp:3306"
+              - "-credential_file=/secrets/sql_credentials.json"
             volumeMounts:
               - name: my-secrets-volume
-                mountPath: /secrets/cloudsql
+                mountPath: /secrets/
                 readOnly: true
-            volumes:
-              - name: my-secrets-volume
-                secret:
-                  secretName: cloudsql-instance-credentials
+          volumes:
+            - name: my-secrets-volume
+              secret:
+                secretName: cloudsql-instance-credentials
 ---
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
