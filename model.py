@@ -1,13 +1,8 @@
 import pandas as pd
 import numpy as np
 import pickle
-import matplotlib.pyplot as plt
 from sklearn import linear_model
 from sklearn.metrics import r2_score
-from sklearn.svm import LinearSVC
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.datasets import make_classification
 
 
 def pkl_write(data, filename='data/dji/data.pickle'):
@@ -24,26 +19,26 @@ def pkl_read(filename='data/dji/data.pickle'):
     return data
 
 
-# def create_model(data):
-#     df_train = pd.read_csv(data, sep=",", header=0, usecols=[0, 1])
-#     x_train = np.array(df_train[["Date"]])
-#     y_train = np.array(df_train[["Open"]])
-#     regr = linear_model.LinearRegression()
-#     regr.fit(x_train, y_train)
-#     print("coefficients: ", regr.coef_)  # Slope
-#     print("Intercept: ", regr.intercept_)  # Intercept
-#     save(regr)
-#     return regr
+def create_model(data):
+    df_train = pd.read_csv(data, sep=",", header=0, usecols=[0, 1])
+    x_train = np.array(df_train[["Date"]])
+    y_train = np.array(df_train[["Open"]])
+    regr = linear_model.LinearRegression()
+    regr.fit(x_train, y_train)
+    print("coefficients: ", regr.coef_)  # Slope
+    print("Intercept: ", regr.intercept_)  # Intercept
+    save(regr)
+    return regr
 
 
-# def test_model(data, model):
-#     df_test = pd.read_csv(data, sep=",", header=0, usecols=[0, 1])
-#     x_test = np.array(df_test[["Date"]])
-#     y_test = np.array(df_test[["Open"]])
-#     test_y_ = model.predict(x_test)
-#     print("Mean absolute error % .2f" % np.mean(np.absolute(test_y_ - y_test)))
-#     print("Mean sum of squares(MSE): % .2f" % np.mean((test_y_ - y_test) ** 2))
-#     print("R2 - score: % .2f" % r2_score(test_y_, y_test))
+def test_model(data, model):
+    df_test = pd.read_csv(data, sep=",", header=0, usecols=[0, 1])
+    x_test = np.array(df_test[["Date"]])
+    y_test = np.array(df_test[["Open"]])
+    test_y_ = model.predict(x_test)
+    print("Mean absolute error % .2f" % np.mean(np.absolute(test_y_ - y_test)))
+    print("Mean sum of squares(MSE): % .2f" % np.mean((test_y_ - y_test) ** 2))
+    print("R2 - score: % .2f" % r2_score(test_y_, y_test))
 
 
 # Function for predicting future values :
