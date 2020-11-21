@@ -16,7 +16,7 @@ LOCAL_SQLALCHEMY_DATABASE_URI = (
 )
 
 LIVE_SQLALCHEMY_DATABASE_URI = (
-    'mysql+pymysql://{nam}:{pas}@localhost/{dbn}?unix_socket=/cloudsql/{con}').format(
+    'mysql+pymysql://{nam}:{pas}@127.0.0.1:3306/{dbn}?unix_socket=/cloudsql/{con}').format(
     nam=CLOUDSQL_USER,
     pas=CLOUDSQL_PASSWORD,
     dbn=CLOUDSQL_DATABASE,

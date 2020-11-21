@@ -22,8 +22,7 @@ spec:
     spec:
       containers:
         - name: cc-final
-          image: gcr.io/cc-final-296102/cc-final
-          imagePullPolicy: IfNotPresent
+          image: gcr.io/cc-final-296102/cc-final:v1
           env:
             - name: DB_USER
               valueFrom:
@@ -44,7 +43,7 @@ spec:
           image: gcr.io/cloudsql-docker/gce-proxy:1.17
           command:
             - "/cloud_sql_proxy"
-            - "-instances=cc-final-296102:us-east1-b:cc_final_database=tcp:3306"
+            - "-instances=cc-final-296102:us-east4:cc-final-database=tcp:3306"
             - "-credential_file=/secrets/sql_credentials.json"
           securityContext:
             runAsNonRoot: true
