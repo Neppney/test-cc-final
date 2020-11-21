@@ -64,11 +64,11 @@ def init_tcp_connection_engine(db_config):
     # db_pass = 'team11DataBases'
     # db_name = 'cc_final_database'
     # db_host = '127.0.0.1'
-    # db_port = 3306
+    db_port = os.environ['DB_HOST']
 
     # Extract host and port from db_host
-    host_args = db_host.split(":")
-    db_hostname, db_port = host_args[0], int(host_args[1])
+    # host_args = db_host.split(":")
+    # db_hostname, db_port = host_args[0], int(host_args[1])
 
     pool = sqlalchemy.create_engine(
         # Equivalent URL:
@@ -78,7 +78,7 @@ def init_tcp_connection_engine(db_config):
             username=db_user,  # e.g. "my-database-user"
             password=db_pass,  # e.g. "my-database-password"
             host=db_host,  # e.g. "127.0.0.1"
-            port=db_port,  # e.g. 3306
+            port=int(db_port),  # e.g. 3306
             database=db_name,  # e.g. "my-database-name"
         ),
         # ... Specify additional properties here.
@@ -260,4 +260,8 @@ if __name__ == '__main__':
     # db.drop_all() - Clear the database
     # db.create_all() - Create all the tables in the database
     # args = get_args()
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    db_user = os.environ["DB_USER"]
+    db_pass = os.environ["DB_PASS"]
+    db_name = os.environ["DB_NAME"]
+    print("Using: {} | {} | {}".format(db_user, db_pass, db_name))
+    app.run(host='127.0.0.1', port=8080, debug=True)

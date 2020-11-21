@@ -42,10 +42,12 @@ spec:
                   key: dbname
             - name: CLOUD_SQL_CONNECTION_NAME
               value: "cc-final-296102:us-east4:cc-final-database"
-        - name: cloudsql-proxy
+            - name: DB_HOST
+              value: "3306"
+        - name: cloud-sql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.17
           command: [ "/cloud_sql_proxy",
-                     "-instances=cc-final-296102:us-east4:cc-final-database",
+                     "-instances=cc-final-296102:us-east4:cc-final-database=tcp:3306",
                      "-credential_file=/secrets/cloudsql/sql_credentials.json"]
           volumeMounts:
           - name: my-secrets-volume
