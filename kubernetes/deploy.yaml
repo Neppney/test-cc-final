@@ -2,14 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: final-project
-  name: final-project
+    app: cc-final
+  name: cc-final
   namespace: default
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: final-project
+      app: cc-final
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -18,12 +18,12 @@ spec:
   template:
     metadata:
       labels:
-        app: final-project
+        app: cc-final
     spec:
       containers:
-        - name: final-project
+        - name: cc-final
           image: gcr.io/cc-final-296102/github.com/neppney/test-cc-final
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           env:
             - name: DB_USER
               valueFrom:
@@ -60,7 +60,7 @@ spec:
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: final-project
+  name: cc-final
   namespace: default
 spec:
   maxReplicas: 5
@@ -73,7 +73,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: final-project
+    name: cc-final
 ---
 apiVersion: v1
 kind: Service
@@ -81,18 +81,18 @@ metadata:
   finalizers:
     - service.kubernetes.io/load-balancer-cleanup
   labels:
-    app: final-project
-  name: app-service
+    app: cc-final
+  name: cc-app-service
   namespace: default
 spec:
-  clusterIP: 10.3.243.33
+  clusterIP: 10.83.254.86
   externalTrafficPolicy: Cluster
   ports:
-    - nodePort: 31808
+    - nodePort: 31673
       port: 80
       protocol: TCP
       targetPort: 8080
   selector:
-    app: final-project
+    app: cc-final
   sessionAffinity: None
   type: LoadBalancer
