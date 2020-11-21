@@ -42,12 +42,13 @@ def init_connection_engine():
         # [END cloud_sql_mysql_sqlalchemy_lifetime]
     }
 
-    # if os.environ.get("DB_HOST"):
-    #     return init_tcp_connection_engine(db_config)
-    # else:
-    #     return init_unix_connection_engine(db_config)
+    if os.environ.get("DB_HOST"):
+        return init_tcp_connection_engine(db_config)
+    else:
+        return init_unix_connection_engine(db_config)
 
-    return init_tcp_connection_engine(db_config)
+    # return init_tcp_connection_engine(db_config)
+    # return init_unix_connection_engine(db_config)
 
 
 def init_tcp_connection_engine(db_config):
@@ -55,19 +56,19 @@ def init_tcp_connection_engine(db_config):
     # Remember - storing secrets in plaintext is potentially unsafe. Consider using
     # something like https://cloud.google.com/secret-manager/docs/overview to help keep
     # secrets secret.
-    # db_user = os.environ["DB_USER"]
-    # db_pass = os.environ["DB_PASS"]
-    # db_name = os.environ["DB_NAME"]
-    # db_host = os.environ["DB_HOST"]
-    db_user = 'root'
-    db_pass = 'team11DataBases'
-    db_name = 'cc_final_database'
-    db_host = '127.0.0.1'
-    db_port = 3306
+    db_user = os.environ["DB_USER"]
+    db_pass = os.environ["DB_PASS"]
+    db_name = os.environ["DB_NAME"]
+    db_host = os.environ["DB_HOST"]
+    # db_user = 'root'
+    # db_pass = 'team11DataBases'
+    # db_name = 'cc_final_database'
+    # db_host = '127.0.0.1'
+    # db_port = 3306
 
     # Extract host and port from db_host
-    # host_args = db_host.split(":")
-    # db_hostname, db_port = host_args[0], int(host_args[1])
+    host_args = db_host.split(":")
+    db_hostname, db_port = host_args[0], int(host_args[1])
 
     pool = sqlalchemy.create_engine(
         # Equivalent URL:
@@ -98,6 +99,7 @@ def init_unix_connection_engine(db_config):
     db_user = os.environ["DB_USER"]
     db_pass = os.environ["DB_PASS"]
     db_name = os.environ["DB_NAME"]
+    print("Using: {} | {} | {}".format(db_user, db_pass, db_name))
     db_socket_dir = os.environ.get("DB_SOCKET_DIR", "/cloudsql")
     cloud_sql_connection_name = os.environ["CLOUD_SQL_CONNECTION_NAME"]
 

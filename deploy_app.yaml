@@ -1,10 +1,19 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cc-final
   labels:
     app: cc-final
 spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cc-final
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -31,10 +40,12 @@ spec:
                 secretKeyRef:
                   name: cloudsql-db-credentials
                   key: dbname
+            - name: CLOUD_SQL_CONNECTION_NAME
+              value: "cc-final-296102:us-east4:cc-final-database"
         - name: cloudsql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.17
           command: [ "/cloud_sql_proxy",
-                     "-instances=cc-final-296102:us-east4:cc-final-database=tcp:3306",
+                     "-instances=cc-final-296102:us-east4:cc-final-database",
                      "-credential_file=/secrets/cloudsql/sql_credentials.json"]
           volumeMounts:
           - name: my-secrets-volume
