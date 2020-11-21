@@ -38,7 +38,7 @@ def infer():
         if not date:
             flash('Pick a date')
         else:
-            price = search(request.form['date'])
+            price = predict(request.form['date'])
             accuracy = random.uniform(0.8, 0.99)
             try:
                 # creating entry object for database

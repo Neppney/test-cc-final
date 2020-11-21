@@ -1,7 +1,7 @@
 ### Mostly Finished Dockerfile ###
 
 # set base image (host os)
-FROM python:3.9
+FROM python:3.8
 
 # Not needed
 # set the environment variable to the private key user json file
